@@ -56,6 +56,13 @@ printcommands()
 	printf ("  powerset  <set1> ......... \n");
 }
 
+void printset (set* s, char* name)
+{
+	printf ("%s = ", name);
+	set_print (s);
+	printf ("\n");
+}
+
 int main()
 {
 	printf ("\n");
@@ -71,30 +78,21 @@ int main()
 	s = new_set(intprn,inteq);
 	t = new_set(intprn,inteq);
 
+	printset (s, "s");
 	addintstoset (s, 3, 3, 5, 7);
-	printf("s = ");
-	set_print(s);
-	printf("\n");
+	printset (s, "s");
 
 	addintstoset (t, 3, 4, 5, 6);
-	printf("t = ");
-	set_print(t);
-	printf("\n");
+	printset (t, "t");
 
 	u = new_set(setprn,seteq);
 	set_insertInto(u,s);
 	set_insertInto(u,t);
-	printf("u = ");
-	set_print(u);
-	printf("\n");
+	printset (u, "u");
 
 	set_insertInto(s,(any)9);
-	printf("s = ");
-	set_print(s);
-	printf("\n");
-	printf("u = ");
-	set_print(u);
-	printf("\n");
+	printset (s, "s");
+	printset (u, "u");
 
 	do
 	{
