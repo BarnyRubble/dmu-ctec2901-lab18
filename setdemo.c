@@ -8,9 +8,9 @@
 
 
 #include <stdio.h>
+#include <stdarg.h>
 #include "any.h"
 #include "set.h"
-#include "ht.h"
 
 void intprn(any x)
 {
@@ -23,6 +23,20 @@ int inteq(any x, any y)
 	return 1;
 	else
 	return 0;
+}
+
+void addintstoset (set* dest, int numargs, ...)
+{
+	int arg, argnum;
+	va_list ap;
+
+	va_start(ap, numargs);
+	for (argnum=0; argnum<numargs; argnum++)
+	{
+		arg = va_arg (ap, int);
+		set_insertInto (dest,(any)arg);
+	}
+	va_end(ap);
 }
 
 printcommands()
@@ -48,6 +62,7 @@ int main()
 	printf ("======================================================================\n");
 	printf ("CTEC2901/Week 18 Lab/setdemo                         (Barnaby Stewart)\n");
 	printf ("======================================================================\n");
+	printf ("\n");
 
 
 	char input[256];
@@ -55,24 +70,24 @@ int main()
 	set * s, *t, *u;
 	s = new_set(intprn,inteq);
 	t = new_set(intprn,inteq);
-	set_insertInto(s,(any)3);
-	set_insertInto(s,(any)5);
-	set_insertInto(s,(any)7);
+
+	addintstoset (s, 3, 3, 5, 7);
 	printf("s = ");
 	set_print(s);
 	printf("\n");
-	set_insertInto(t,(any)4);
-	set_insertInto(t,(any)5);
-	set_insertInto(t,(any)6);
+
+	addintstoset (t, 3, 4, 5, 6);
 	printf("t = ");
 	set_print(t);
 	printf("\n");
+
 	u = new_set(setprn,seteq);
 	set_insertInto(u,s);
 	set_insertInto(u,t);
 	printf("u = ");
 	set_print(u);
 	printf("\n");
+
 	set_insertInto(s,(any)9);
 	printf("s = ");
 	set_print(s);
@@ -83,6 +98,7 @@ int main()
 
 	do
 	{
+		printf ("\n");
 		printf ("Enter Command (? for help) :>");
 
 		scanf (" %s", input);
@@ -121,6 +137,8 @@ int main()
 		}
 	} while (input[0] != 'q');
 
+	printf ("\n");
+	printf ("----------------------------------------------------------------------\n");
 	printf ("Program 'setdemo' Terminating\n");
 	printf ("----------------------------------------------------------------------\n");
 	printf ("\n");
