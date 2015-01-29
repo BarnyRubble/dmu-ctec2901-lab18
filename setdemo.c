@@ -44,6 +44,12 @@ printcommands()
 
 int main()
 {
+	printf ("\n");
+	printf ("======================================================================\n");
+	printf ("CTEC2901/Week 18 Lab/setdemo                         (Barnaby Stewart)\n");
+	printf ("======================================================================\n");
+
+
 	char input[256];
 
 	set * s, *t, *u;
@@ -114,5 +120,9 @@ int main()
 				printf ("Unrecognised input, please try again...\n");
 		}
 	} while (input[0] != 'q');
+
+	printf ("Program 'setdemo' Terminating\n");
+	printf ("----------------------------------------------------------------------\n");
+	printf ("\n");
 }
 
