@@ -7,6 +7,7 @@
 #include "clist.h"
 #include "set.h"
 
+
 struct set_implementation
 {
 	clist * items;
