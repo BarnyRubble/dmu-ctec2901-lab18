@@ -33,79 +33,79 @@ typedef struct command
 	char* parms;
 } cmd;
 
-int fn_isempty()
+int cmd_isempty()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_issubset()
+int cmd_issubset()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_isequal()
+int cmd_isequal()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_issubeq()
+int cmd_issubeq()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_count()
+int cmd_count()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_isin()
+int cmd_isin()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_insert()
+int cmd_insert()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_remove()
+int cmd_remove()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_intersect()
+int cmd_intersect()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_union()
+int cmd_union()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_minus()
+int cmd_minus()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
-int fn_powerset()
+int cmd_powerset()
 {
 	printf ("<Function Not Yet Implemented>\n");
 }
 
 cmd commands[] = {
-	{fn_isempty,   "isempty",   "<set>"},
-	{fn_issubset,  "issubset",  "<set1> <set2>"},
-	{fn_isequal,   "isequal",   "<set1> <set2>"},
-	{fn_issubeq,   "issubeq",   "<set1> <set2>"},
-	{fn_count,     "count",     "<set>"},
-	{fn_isin,      "isin",      "<set1> <int>"},
-	{fn_insert,    "insert",    "<set1> <int>"},
-	{fn_remove,    "remove",    "<set1> <int>"},
-	{fn_intersect, "intersect", "<set1> <set2>"},
-	{fn_union,     "union",     "<set1> <set2>"},
-	{fn_minus,     "minus",     "<set1> <set2>"},
-	{fn_powerset,  "powerset",  "<set>"}
+	{cmd_isempty,   "isempty",   "<set>"},
+	{cmd_issubset,  "issubset",  "<set1> <set2>"},
+	{cmd_isequal,   "isequal",   "<set1> <set2>"},
+	{cmd_issubeq,   "issubeq",   "<set1> <set2>"},
+	{cmd_count,     "count",     "<set>"},
+	{cmd_isin,      "isin",      "<set1> <int>"},
+	{cmd_insert,    "insert",    "<set1> <int>"},
+	{cmd_remove,    "remove",    "<set1> <int>"},
+	{cmd_intersect, "intersect", "<set1> <set2>"},
+	{cmd_union,     "union",     "<set1> <set2>"},
+	{cmd_minus,     "minus",     "<set1> <set2>"},
+	{cmd_powerset,  "powerset",  "<set>"}
 };
 
 printcommands()
@@ -197,7 +197,6 @@ int main()
 		printf ("Enter Command (? for help) :>");
 
 		scanf (" %s", input);
-
 		switch (input[0])
 		{
 			case 'q':
