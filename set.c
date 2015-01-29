@@ -145,22 +145,51 @@ void set_minusWith(set *s, set * t) // s = s \ t t is unchanged
 	}
 }
 
+struct psnode
+{
+	any item;
+	struct psnode* parent;
+};
+
+void set_recursePowerset (set* powerset, set* sourceset, int size, struct psnode* parent)
+{
+	assert(powerset!=NULL);
+	assert(sourceset!=NULL);
+
+	struct psnode this;
+
+	if (size == 0)
+	{
+		set* newset = new_set (sourceset->item_printer, sourceset->item_compare);
+		while (parent)
+		{
+			set_insertInto (newset, parent->item);
+			parent = parent->parent;
+		}
+		set_insertInto (powerset, newset);
+	}
+	else
+	{
+		int index;
+		clist_goto_head (sourceset->items);
+		for (index = 0; index < size-1; index++)
+		{
+			clist_goto_next (sourceset->items);
+		}
+		
+		this.parent = parent;
+		this.item = clist_get_item (sourceset->items);
+		set_recursePowerset (powerset, sourceset, size - 1, parent);
+		set_recursePowerset (powerset, sourceset, size - 1, &this);
+	}
+}
+
 set* set_powerset(set *s) // generates new set
 {
 	assert(s!=NULL);
 
-	clist* powerset = new_clist();
-/*
-	clist_goto_head(s->items);
-	while (clist_cursor_inlist(s->items))
-	{
-		if (set_isin(t,clist_get_item(s->items)))
-			clist_delete (s->items);
-		else
-			clist_goto_next(s->items);
-	}
-*/
-
+	set* powerset = new_set (setprn, seteq);
+	set_recursePowerset (powerset, s, clist_size(s->items), NULL);
 	return powerset;
 }
 
