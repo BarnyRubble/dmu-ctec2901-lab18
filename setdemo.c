@@ -12,6 +12,7 @@
 #include "any.h"
 #include "set.h"
 
+
 void intprn(any x)
 {
 	printf("%li", (long)x);
@@ -23,6 +24,100 @@ int inteq(any x, any y)
 	return 1;
 	else
 	return 0;
+}
+
+typedef struct command
+{
+	int (*func)();
+	char* name;
+	char* parms;
+} cmd;
+
+int fn_isempty()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_issubset()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_isequal()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_issubeq()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_count()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_isin()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_insert()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_remove()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_intersect()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_union()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_minus()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+int fn_powerset()
+{
+	printf ("<Function Not Yet Implemented>\n");
+}
+
+cmd commands[] = {
+	{fn_isempty,   "isempty",   "<set>"},
+	{fn_issubset,  "issubset",  "<set1> <set2>"},
+	{fn_isequal,   "isequal",   "<set1> <set2>"},
+	{fn_issubeq,   "issubeq",   "<set1> <set2>"},
+	{fn_count,     "count",     "<set>"},
+	{fn_isin,      "isin",      "<set1> <int>"},
+	{fn_insert,    "insert",    "<set1> <int>"},
+	{fn_remove,    "remove",    "<set1> <int>"},
+	{fn_intersect, "intersect", "<set1> <set2>"},
+	{fn_union,     "union",     "<set1> <set2>"},
+	{fn_minus,     "minus",     "<set1> <set2>"},
+	{fn_powerset,  "powerset",  "<set>"}
+};
+
+printcommands()
+{
+	printf ("Valid Commands are...\n");
+
+	int index;
+	int max = sizeof(commands) / sizeof(cmd);
+	for (index=0; index<max; index++)
+	{
+		printf ("  %-9s %s\n", commands[index].name, commands[index].parms);
+	}
 }
 
 void addintstoset (set* dest, int numargs, ...)
@@ -39,28 +134,26 @@ void addintstoset (set* dest, int numargs, ...)
 	va_end(ap);
 }
 
-printcommands()
-{
-	printf ("Valid Commands are...\n");
-	printf ("  isempty   <set> .......... \n");
-	printf ("  issubset  <set1> <set2> .. \n");
-	printf ("  isequal   <set1> <set2> .. \n");
-	printf ("  issubeq   <set1> <set2> .. \n");
-	printf ("  count     <set> .......... \n");
-	printf ("  isin      <set1> <int> ... \n");
-	printf ("  insert    <set1> <int> ... \n");
-	printf ("  remove    <set1> <int> ... \n");
-	printf ("  intersect <set1> <set2> .. \n");
-	printf ("  union     <set1> <set2> .. \n");
-	printf ("  minus     <set1> <set2> .. \n");
-	printf ("  powerset  <set1> ......... \n");
-}
-
 void printset (set* s, char* name)
 {
 	printf ("%s = ", name);
 	set_print (s);
 	printf ("\n");
+}
+
+int parsecommand (char* input)
+{
+	int index;
+	int max = sizeof(commands) / sizeof(cmd);
+	for (index=0; index<max; index++)
+	{
+		if (strcmp (input, commands[index].name) == 0)
+		{
+			commands[index].func();
+			return 1;
+		}
+	}
+	return 0;
 }
 
 int main()
@@ -72,7 +165,6 @@ int main()
 	printf ("\n");
 
 
-	char input[256];
 
 	set * s, *t, *u;
 	s = new_set(intprn,inteq);
@@ -97,6 +189,8 @@ int main()
 	printset (s, "s");
 	printset (u, "u");
 
+
+	char input[256];
 	do
 	{
 		printf ("\n");
@@ -112,55 +206,7 @@ int main()
 				printcommands();
 				break;
 			default:
-				if (strcmp (input, "isempty") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "issubset") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "isequal") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "issubeq") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "count") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "isin") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "insert") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "remove") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "intersect") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "union") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "minus") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else if (strcmp (input, "powerset") == 0)
-				{
-					printf ("<Function Not Yet Implemented>\n");
-				}
-				else
+				if (parsecommand (input) == 0)
 				{
 					printf ("Unrecognised input, please try again...\n");
 				}
