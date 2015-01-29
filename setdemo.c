@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include "any.h"
 #include "set.h"
+#include "ht.h"
 
 void intprn(any x)
 {
@@ -24,9 +25,27 @@ int inteq(any x, any y)
 	return 0;
 }
 
+printcommands()
+{
+	printf ("Valid Commands are...\n");
+	printf ("  isempty   <set> .......... \n");
+	printf ("  issubset  <set1> <set2> .. \n");
+	printf ("  isequal   <set1> <set2> .. \n");
+	printf ("  issubeq   <set1> <set2> .. \n");
+	printf ("  count     <set> .......... \n");
+	printf ("  isin      <set1> <int> ... \n");
+	printf ("  insert    <set1> <int> ... \n");
+	printf ("  remove    <set1> <int> ... \n");
+	printf ("  intersect <set1> <set2> .. \n");
+	printf ("  union     <set1> <set2> .. \n");
+	printf ("  minus     <set1> <set2> .. \n");
+	printf ("  powerset  <set1> ......... \n");
+}
 
 int main()
 {
+	char input[256];
+
 	set * s, *t, *u;
 	s = new_set(intprn,inteq);
 	t = new_set(intprn,inteq);
@@ -55,5 +74,45 @@ int main()
 	printf("u = ");
 	set_print(u);
 	printf("\n");
+
+	do
+	{
+		printf ("Enter Command (? for help) :>");
+
+		scanf (" %s", input);
+
+		switch (input[0])
+		{
+			case 'q':
+				break;
+			case '?':
+				printcommands();
+				break;
+			/*
+			case 'd':
+				scanf (" %c", &c);
+				bst_char_delete (tree, c);
+				treechanged = 1;
+				break;
+			case '[':
+				printf ("Prefix traversal: ");
+				bst_char_preorder_print (tree, print_char);
+				putchar ('\n');
+				break;
+			case '-':
+				printf ("Infix traversal: ");
+				bst_char_inorder_print (tree, print_char);
+				putchar ('\n');
+				break;
+			case ']':
+				printf ("Postfix traversal: ");
+				bst_char_postorder_print (tree, print_char);
+				putchar ('\n');
+				break;
+			*/
+			default:
+				printf ("Unrecognised input, please try again...\n");
+		}
+	} while (input[0] != 'q');
 }
 
