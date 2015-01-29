@@ -215,7 +215,11 @@ void set_print(set *s)
 void set_release(set *s)
 {
 	assert(s!=NULL);
-	assert(clist_isempty(s->items));
+	// do not see this assert as valid - it is reasonable to release a set
+	// that is not empty .... simply empty the set.
+	//assert(clist_isempty(s->items));
+	clist_goto_head (s->items);
+	while (clist_delete (s->items) != 0);
 	clist_release(s->items);
 	free(s);
 }

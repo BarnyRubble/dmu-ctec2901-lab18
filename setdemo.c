@@ -85,6 +85,9 @@ int main()
 	addintstoset (t, 3, 4, 5, 6);
 	printset (t, "t");
 
+	set* ps = set_powerset (s);
+	printset (ps, "ps");
+
 	u = new_set(setprn,seteq);
 	set_insertInto(u,s);
 	set_insertInto(u,t);
@@ -108,32 +111,66 @@ int main()
 			case '?':
 				printcommands();
 				break;
-			/*
-			case 'd':
-				scanf (" %c", &c);
-				bst_char_delete (tree, c);
-				treechanged = 1;
-				break;
-			case '[':
-				printf ("Prefix traversal: ");
-				bst_char_preorder_print (tree, print_char);
-				putchar ('\n');
-				break;
-			case '-':
-				printf ("Infix traversal: ");
-				bst_char_inorder_print (tree, print_char);
-				putchar ('\n');
-				break;
-			case ']':
-				printf ("Postfix traversal: ");
-				bst_char_postorder_print (tree, print_char);
-				putchar ('\n');
-				break;
-			*/
 			default:
-				printf ("Unrecognised input, please try again...\n");
+				if (strcmp (input, "isempty") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "issubset") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "isequal") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "issubeq") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "count") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "isin") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "insert") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "remove") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "intersect") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "union") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "minus") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else if (strcmp (input, "powerset") == 0)
+				{
+					printf ("<Function Not Yet Implemented>\n");
+				}
+				else
+				{
+					printf ("Unrecognised input, please try again...\n");
+				}
 		}
 	} while (input[0] != 'q');
+
+	set_release (s);
+	set_release (t);
+	set_release (u);
+	set_release (ps);
 
 	printf ("\n");
 	printf ("----------------------------------------------------------------------\n");
