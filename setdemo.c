@@ -11,6 +11,7 @@
 #include <stdarg.h>
 #include "any.h"
 #include "set.h"
+#include "avl_any.h"
 
 
 void intprn(any x)
@@ -26,6 +27,29 @@ int inteq(any x, any y)
 	return 0;
 }
 
+
+// Keeping track of demo sets
+//----------------------------------------------------------------------------
+#define SET_OF_INTS 1
+#define SET_OF_SETS 2
+
+#define MAX_SET_NAME 20
+
+typedef struct setmetadata
+{
+	int   type;
+	char* name[MAX_SET_NAME];
+	set*  ptr;
+} setmeta;
+
+int setmeta_lessthan (any item1, any item2)
+{
+	return strcmp (((setmeta*)item1)->name, ((setmeta*)item2)->name) < 0;
+}
+
+
+// Command processing
+//----------------------------------------------------------------------------
 typedef struct command
 {
 	int (*func)();
@@ -35,62 +59,62 @@ typedef struct command
 
 int cmd_isempty()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'isempty' Not Yet Implemented>\n");
 }
 
 int cmd_issubset()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'issubset' Not Yet Implemented>\n");
 }
 
 int cmd_isequal()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'isequal' Not Yet Implemented>\n");
 }
 
 int cmd_issubeq()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'issubeq' Not Yet Implemented>\n");
 }
 
 int cmd_count()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'count' Not Yet Implemented>\n");
 }
 
 int cmd_isin()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'isin' Not Yet Implemented>\n");
 }
 
 int cmd_insert()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'insert' Not Yet Implemented>\n");
 }
 
 int cmd_remove()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'remove' Not Yet Implemented>\n");
 }
 
 int cmd_intersect()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'intersect' Not Yet Implemented>\n");
 }
 
 int cmd_union()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'union' Not Yet Implemented>\n");
 }
 
 int cmd_minus()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'minus' Not Yet Implemented>\n");
 }
 
 int cmd_powerset()
 {
-	printf ("<Function Not Yet Implemented>\n");
+	printf ("<Command 'powerset' Not Yet Implemented>\n");
 }
 
 cmd commands[] = {
@@ -156,16 +180,8 @@ int parsecommand (char* input)
 	return 0;
 }
 
-int main()
+void OldTests (void)
 {
-	printf ("\n");
-	printf ("======================================================================\n");
-	printf ("CTEC2901/Week 18 Lab/setdemo                         (Barnaby Stewart)\n");
-	printf ("======================================================================\n");
-	printf ("\n");
-
-
-
 	set * s, *t, *u;
 	s = new_set(intprn,inteq);
 	t = new_set(intprn,inteq);
@@ -190,6 +206,26 @@ int main()
 	printset (u, "u");
 
 
+	set_release (s);
+	set_release (t);
+	set_release (u);
+	set_release (ps);
+}
+
+int main()
+{
+	printf ("\n");
+	printf ("======================================================================\n");
+	printf ("CTEC2901/Week 18 Lab/setdemo                         (Barnaby Stewart)\n");
+	printf ("======================================================================\n");
+	printf ("\n");
+
+
+	OldTests();
+	
+
+	avl_any* demosets = new_avl_any (setmeta_lessthan);
+
 	char input[256];
 	do
 	{
@@ -212,10 +248,7 @@ int main()
 		}
 	} while (input[0] != 'q');
 
-	set_release (s);
-	set_release (t);
-	set_release (u);
-	set_release (ps);
+	avl_any_release (demosets);
 
 	printf ("\n");
 	printf ("----------------------------------------------------------------------\n");
