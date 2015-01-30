@@ -25,7 +25,8 @@ void set_minusWith (set *s, set * t); // s = s \ t t is unchanged
 set* set_powerset (set *s); // generates new set
 void set_print (set *s);
 void set_release (set *s);
-int seteq (any s, any t); // in case of creating sets of sets
-void setprn (any s); // these cover functions please the typechecker
+
+int  seteq  (any s, any t); // in case of creating sets of sets
+void setprn (any s);        // these cover functions please the typechecker
 
 #endif

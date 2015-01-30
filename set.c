@@ -11,16 +11,16 @@ struct set_implementation
 {
 	clist * items;
 	printer item_printer;
-	equals item_compare;
+	equals  item_equals;
 };
 
-set * new_set(printer item_printer, equals item_compare)
+set * new_set (printer item_printer, equals item_equals)
 {
 	set * s = (set *) malloc (sizeof(set));
 	assert (s!=NULL);
 	s->items = new_clist();
 	s->item_printer = item_printer;
-	s->item_compare = item_compare;
+	s->item_equals  = item_equals;
 	return s;
 }
 
@@ -82,7 +82,7 @@ int set_isin(set *s, any x)
 	clist_goto_head(s->items);
 	while (clist_cursor_inlist(s->items))
 	{
-		if (s->item_compare(clist_get_item(s->items),x))
+		if (s->item_equals(clist_get_item(s->items),x))
 			return 1; // found it
 		else
 			clist_goto_next(s->items);
@@ -160,7 +160,7 @@ void set_recursePowerset (set* powerset, set* sourceset, int size, struct psnode
 
 	if (size == 0)
 	{
-		set* newset = new_set (sourceset->item_printer, sourceset->item_compare);
+		set* newset = new_set (sourceset->item_printer, sourceset->item_equals);
 		while (parent)
 		{
 			set_insertInto (newset, parent->item);
@@ -215,22 +215,18 @@ void set_print(set *s)
 void set_release(set *s)
 {
 	assert(s!=NULL);
-	// do not see this assert as valid - it is reasonable to release a set
-	// that is not empty .... simply empty the set.
-	//assert(clist_isempty(s->items));
-	clist_goto_head (s->items);
-	while (clist_delete (s->items) != 0);
-	clist_release(s->items);
-	free(s);
+	//assert(clist_isempty (s->items));
+	clist_release (s->items);
+	free (s);
 }
 
-int seteq(any s, any t)
+int seteq (any s, any t)
 {
 	return set_isEqualTo((set*)s,(set*)t);
 }
 
-void setprn(any s)
+void setprn (any s)
 {
-	set_print((set*)s);
+	set_print ((set*)s);
 }
 
